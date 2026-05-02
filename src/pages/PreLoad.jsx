@@ -1,0 +1,33 @@
+import React, { useState } from 'react'
+import { useEffect } from 'react';
+
+const PreLoad = () => {
+    const [isHidden, setHidden] = useState(false);
+
+    useEffect(() => {
+        const t1 = setTimeout(() => {
+            setHidden(true);
+        }, 1300);
+
+        return()=> { clearTimeout(t1) }
+    }, [])
+
+    return (
+        <div className={`${isHidden ? 'hidden' : ''} relative inset-0 bg-white w-[100%] h-screen`}>
+            {/* main heading  - layer 0  */}
+            <div className='z-0 absolute inset-0 leading-30 flex flex-col justify-center h-[100vh] text-center '>
+                <h2 className='color-black tracking-widest animate-in fade-in slide-in-from-bottom-100 duration-500 text-[150px] font-extrabold '>
+                    BASIC
+                </h2>
+                <h2 className='color-black duration-200 text-[150px] font-extrabold tracking-tighter'>
+                    /DEPT®
+                </h2>
+            </div>
+            {/* screen length white strip - goes top */}
+            <div className='absolute bg-white fill-mode-forwards inset-0 duration-800 delay-[500ms] h-full w-full animate-in slide-in-from-bottom-full slide-out-to-top-[50%]'>
+            </div>
+        </div>
+    )
+}
+
+export default PreLoad

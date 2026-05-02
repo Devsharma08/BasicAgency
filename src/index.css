@@ -1,0 +1,9 @@
+@import "tailwindcss";
+@plugin "tailwindcss-animate";
+
+
+
+body{
+    background-color: #F2F2F2;
+    overflow-x: hidden;
+}
