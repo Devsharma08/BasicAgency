@@ -1,49 +1,46 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import DragCursor from "../utils/dragComponent";
-import { useEffect } from "react";
 
 const resources = [
     {
         link: "/featuredEn1.webp",
         heading: "google",
-        text: "Our embedded partnership with Google is as deep as it gets. We’re the lead creative agency for Google Store and provide strategy, design, and prototyping to other divisions. Learn more about our partnership ",
+        text: "Our embedded partnership with Google is as deep as it gets. We're the lead creative agency for Google Store and provide strategy, design, and prototyping to other divisions.",
     },
     {
         link: "/featuredEn2.webp",
         heading: "kfc",
-        text: "An award-winning global, digital transformation engagement spanning eCommerce, mobile app, and new drive thru experiences. Bringing KFC’s brand story to life while making it easier for customers to buy chicken. Learn more about our partnership ",
+        text: "An award-winning global, digital transformation engagement spanning eCommerce, mobile app, and new drive thru experiences.",
     },
     {
         link: "/featuredEn3.webp",
         heading: "wilson",
-        text: "A reimagining of Wilson’s brand visual identity, and brand campaign, to support a new product drop and the launch of the first brick and mortar retail location in the brand’s 108-year history. Read our full case study ",
+        text: "A reimagining of Wilson's brand visual identity, and brand campaign, to support a new product drop and the launch of the first brick and mortar retail location.",
     },
     {
         link: "/featuredEn4.webp",
         heading: "at&t",
-        text: "Redesigning the digital flagship for the largest telecommunications company in the world. Creating frictionless paths to purchase for a wide range of consumers across a vast portfolio of products and services.",
+        text: "Redesigning the digital flagship for the largest telecommunications company in the world. Creating frictionless paths to purchase for consumers.",
     },
     {
         link: "/featuredEn5.webp",
         heading: "patagonia",
-        text: "Ongoing partnership providing strategy, branding, experience design, and development focused on bringing their mission and offerings to consumers through brand-led programs and platforms. Read our full case study ",
+        text: "Ongoing partnership providing strategy, branding, experience design, and development focused on bringing their mission and offerings to consumers.",
     },
 ];
-
 
 const FeaturedEngagements = () => {
     const scrollRef = useRef(null);
     const [isDragging, setIsDragging] = useState(false);
     const [startX, setStartX] = useState(0);
     const [scrollLeft, setScrollLeft] = useState(0);
-    const [inside, setInside] = useState(false); // Fixed typo 'setInsie'
+    const [inside, setInside] = useState(false);
     const [mouseDrag, setMouseDrag] = useState(false);
     const [progress, setProgress] = useState(0);
 
     const handleMouseDown = (e) => {
         setIsDragging(true);
         setMouseDrag(true);
-        // Use currentTarget to ensure we calculate from the container
         setStartX(e.pageX - scrollRef.current.offsetLeft);
         setScrollLeft(scrollRef.current.scrollLeft);
     };
@@ -71,11 +68,11 @@ const FeaturedEngagements = () => {
     }
 
     useEffect(() => {
-        if (!scrollRef) return;
+        const el = scrollRef.current;
+        if (!el) return;
 
-        scrollRef.current.addEventListener('scroll', handleProgress);
-
-        return () => scrollRef.current.removeEventListener('scroll', handleProgress)
+        el.addEventListener('scroll', handleProgress);
+        return () => el.removeEventListener('scroll', handleProgress)
     }, [])
 
     return (
@@ -84,19 +81,16 @@ const FeaturedEngagements = () => {
             onMouseLeave={() => setInside(false)}
             onMouseEnter={() => setInside(true)}
         >
-            {/* Custom Cursor Component */}
             {inside && <DragCursor mouseDrag={mouseDrag} />}
 
-            {/* Heading Structure: Forced breaks for LG screens */}
             <div className="flex flex-wrap border-t border-gray-200 pt-10">
-                <h3 className="text-xl font-bold tracking-widest uppercase leading-tight">
+                <h3 className="text-[4vw] font-extrabold tracking-widest uppercase leading-tight">
                     <span className="block lg:inline">FEATURED</span>
                     <span className="hidden lg:inline">&nbsp;</span>
                     <span className="block lg:inline">ENGAGEMENTS</span>
                 </h3>
             </div>
 
-            {/* Drag-able Track */}
             <div
                 ref={scrollRef}
                 onMouseDown={handleMouseDown}
@@ -106,7 +100,6 @@ const FeaturedEngagements = () => {
                     handleMouseUp();
                     setInside(false);
                 }}
-
                 className="mt-12 flex flex-nowrap select-none overflow-x-hidden gap-x-12 cursor-grab active:cursor-grabbing"
             >
                 {resources.map((item, index) => (
@@ -123,7 +116,7 @@ const FeaturedEngagements = () => {
 
                         <div className="space-y-4">
                             <h3 className="text-2xl uppercase font-bold tracking-tighter">{item.heading}</h3>
-                            <p className="text-sm md:text-base leading-relaxed text-gray-800 max-w-sm">
+                            <p className="text-sm md:text-base lg:font-[500] font-serif leading-relaxed max-w-sm">
                                 {item.text}
                             </p>
                         </div>
@@ -131,10 +124,7 @@ const FeaturedEngagements = () => {
                 ))}
             </div>
 
-            {/* progress bar */}
-            {/* Progress Bar Container */}
-            <div className="mt-12 h-[2px] mr-[4rem]  w-full bg-gray-200 overflow-hidden relative">
-                {/* The Actual Progress Fill */}
+            <div className="mt-12 h-[2px] mr-[4rem] w-full bg-gray-200 overflow-hidden relative">
                 <div
                     className="h-full bg-black transition-all duration-150 ease-out"
                     style={{ width: `${progress}%` }}
@@ -143,4 +133,5 @@ const FeaturedEngagements = () => {
         </section>
     );
 };
+
 export default FeaturedEngagements;

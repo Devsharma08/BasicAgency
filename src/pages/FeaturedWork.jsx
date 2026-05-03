@@ -15,9 +15,9 @@ const FeaturedWork = () => {
 
        
         <div className='mt-12 '>
-          <button className='relative h-fit group border overflow-hidden bg-transparent py-[10px] rounded-3xl w-fit group px-[3vw]  text-center '>
-            <span className='absolute rounded-3xl bottom-0 inset-x-0 transition-all duration-500 ease-out-in h-0 -z-10 group-hover:h-full bg-black'></span>
-            <span className='group-hover:text-white font-semibold transition-color  duration-500 '>SEE THE WORK</span>
+          <button className='relative h-fit group border border-black overflow-hidden bg-transparent py-[10px] rounded-3xl w-fit cursor-pointer px-[3vw] text-center'>
+            <span className='absolute rounded-3xl left-0 right-0 bottom-0 transition-all duration-500 ease-in-out h-0 group-hover:h-full bg-black'></span>
+            <span className='relative z-10 group-hover:text-white font-semibold transition-colors duration-500'>SEE THE WORK</span>
           </button>
         </div>
       </div>

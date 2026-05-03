@@ -1,72 +1,103 @@
 import React, { useState } from "react";
 import CustomCursor from "../utils/heroFollowerPointer";
 
-const Hero = () => {
+const Hero = ({ showHero }) => {
   const [mute, setMute] = useState(true);
-  const [isSideNav,setIsSideNav] = useState(true);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [inside, setInside] = useState(false);
 
-  const [inside,setInside] = useState(false);
-  const handleButtonClick = (e) => {
-    e.preventDefault();
-    if(!inside) return;
-    setIsSideNav(prev=>!prev);
-  }
-  // dark #252422
-  // pink #F9CDCD
-  // bg #F2F2F2
+  const handleMenuClick = (e) => {
+    e.stopPropagation();
+    setIsMenuOpen((prev) => !prev);
+  };
 
-  const links = ["Work","About","News","Thinking","Career","Contact","Initiatives"]
+  const links = [
+    "Work",
+    "About",
+    "News",
+    "Thinking",
+    "Career",
+    "Contact",
+    "Initiatives",
+  ];
+
   return (
     <>
-    {isSideNav ?
-    <div style={{backgroundColor:'#252422',color:'#F9CDCD'}} className="w-full h-[100vh]">
+      {/* Fullscreen side-nav overlay */}
+      <div
+        style={{ backgroundColor: "#252422", color: "#F9CDCD" }}
+        className={`fixed inset-0 z-[1000] transition-transform duration-500 ease-in-out ${
+          isMenuOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
         <nav className="flex flex-col absolute inset-0 justify-between py-[3rem] px-[4rem]">
-          {/* heading */}
           <div className="flex mb-[5rem] justify-between">
-            <div className="font-extrabold text-2xl ">BASIC/DEPT®</div>
-            <div className="font-bold text-md ">
-              <button className="" onClick={handleButtonClick}>╳</button>
+            <div className="font-extrabold text-2xl">BASIC/DEPT®</div>
+            <div className="font-bold text-md">
+              <button className="cursor-pointer" onClick={handleMenuClick}>
+                ╳
+              </button>
             </div>
           </div>
 
-          {/* list nav's */}
-          <ul className="h-full space-y-[1rem] ">
-            {links.map((item,index)=>(
-              <li className="font-bold uppercase leading-8 text-2xl" key={index}>
+          <ul className="h-full space-y-[1rem]">
+            {links.map((item, index) => (
+              <li
+                className="font-bold uppercase leading-8 text-2xl"
+                key={index}
+              >
                 {item}
               </li>
             ))}
           </ul>
 
-          {/* footer */}
           <footer className="flex text-xs text-gray-500 justify-between">
-            <p>BASIC/DEPT®,INC</p>
+            <p>BASIC/DEPT®, INC</p>
             <p>10-26 &copy;</p>
           </footer>
         </nav>
-    </div> : <section onMouseEnter={()=>setInside(true)} onMouseLeave={()=>setInside(false)} onClick={() => setMute(!mute)} className="relative">
-        {/* heading */}
-        <nav className="flex absolute inset-0 justify-between py-[3rem] text-white px-[4rem]">
-            <div className="font-extrabold text-xl ">BASIC/DEPT®</div>
-            <div className="font-bold text-md ">
-              <button onClick={handleButtonClick}>MENU</button></div>
+      </div>
+
+      {/* Hero section with video */}
+      <section
+        onMouseEnter={() => setInside(true)}
+        onMouseLeave={() => setInside(false)}
+        className={`relative overflow-hidden ${inside ? "cursor-none" : ""}`}
+      >
+        <nav className="absolute top-0 left-0 right-0 z-10 flex justify-between py-[3rem] text-white px-[4rem]">
+          <div className="font-extrabold text-xl cursor-default">
+            BASIC/DEPT®
+          </div>
+          <div className="font-bold text-md">
+            <button
+              className={`cursor-pointer ${inside ? "cursor-none" : ""}`}
+              onClick={handleMenuClick}
+            >
+              MENU
+            </button>
+          </div>
         </nav>
-        {inside && <CustomCursor/>}
-        <div 
-          
-          className="delay-[1200ms] cursor-none animate-in slide-in-from-bottom-full duration-1000 "
+
+        {inside && <CustomCursor />}
+
+        <div
+          onClick={() => setMute((prev) => !prev)}
+          className={`${
+            showHero
+              ? "animate-in slide-in-from-bottom-full duration-1000"
+              : "translate-y-full"
+          }`}
         >
           <video
             autoPlay
             muted={mute}
             playsInline
-            className="hero-cursor-img pointer-events-none h-[100vh]  w-full -z-1 object-cover "
+            className="pointer-events-none h-[100vh] w-full -z-1 object-cover"
           >
             <source src="/vid3.mp4" type="video/mp4" />
           </video>
         </div>
-      </section>}
-      
+      </section>
     </>
   );
 };
