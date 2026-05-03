@@ -41,7 +41,7 @@ const App = () => {
   }, []);
 
   return (
-    <div className={`transition-colors duration-600 ease-in-out min-h-screen overflow-x-hidden ${
+    <div className={`transition-colors duration-600 ease-in-out min-h-screen ${
       theme === "dark" ? 'bg-[#252422] text-[#F9CDCD]!' : 'bg-[#F2F2F2] text-black!'
     }`}>
       <PreLoad onFinish={handlePreloadFinish} />

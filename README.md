@@ -7,8 +7,11 @@
 ![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
 
 **A pixel-perfect frontend clone of the [BASIC/DEPT®](https://www.basicagency.com/) agency website.**
-<a href="https://basic-agency-seven.vercel.app/" target="_blank">Live Clone Page</a>
 Built for learning and portfolio purposes — no backend, no credentials, no affiliation.
+
+### 🔗 [Live Demo →](https://basic-agency-seven.vercel.app/)
+
+[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-000?style=flat-square&logo=vercel&logoColor=white)](https://basic-agency-seven.vercel.app/)
 
 </div>
 
